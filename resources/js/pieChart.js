@@ -73,6 +73,9 @@ const pieChart = () => {
                 ],
 
                 legend: component.get('pieChartModel.legend') || {},
+
+                theme: component.get('pieChartModel.theme') || {},
+
             };
 
             const colors = component.get('pieChartModel.colors');
