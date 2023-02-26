@@ -1,3 +1,4 @@
+import {mergedOptionsWithJsonConfig} from './helpers'
 
 const pieChart = () => {
     return {
@@ -21,6 +22,7 @@ const pieChart = () => {
             const data = component.get('pieChartModel.data')
             const sparkline = component.get('pieChartModel.sparkline')
             const type = component.get('pieChartModel.type')
+            const jsonConfig = component.get('pieChartModel.jsonConfig');
 
             const options = {
                 series: data.map(item => item.value),
@@ -74,8 +76,15 @@ const pieChart = () => {
 
                 legend: component.get('pieChartModel.legend') || {},
 
-                theme: component.get('pieChartModel.theme') || {},
+                tooltip: {
+                    y: {
+                        formatter: function(value, series) {
+                            return data[series.dataPointIndex].extras.tooltip || value;
+                        }
+                    }
+                },
 
+                theme: component.get('pieChartModel.theme') || {},
             };
 
             const colors = component.get('pieChartModel.colors');
@@ -84,7 +93,7 @@ const pieChart = () => {
                 options['colors'] = colors
             }
 
-            this.chart = new ApexCharts(this.$refs.container, options);
+            this.chart = new ApexCharts(this.$refs.container, mergedOptionsWithJsonConfig(options, jsonConfig));
             this.chart.render();
         }
     }

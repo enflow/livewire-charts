@@ -18,6 +18,7 @@ class BaseChartModel
     use HasSparkline;
     use HasGrid;
     use HasColors;
+    use HasJsonConfig;
     use HasTheme;
 
     public function __construct()
@@ -31,6 +32,7 @@ class BaseChartModel
         $this->initSparkline();
         $this->initGrid();
         $this->initColors();
+        $this->initJsonConfig();
         $this->initTheme();
     }
 
@@ -51,6 +53,7 @@ class BaseChartModel
             $this->sparklineToArray(),
             $this->gridToArray(),
             $this->colorsToArray(),
+            $this->jsonConfigToArray(),
             $this->themeToArray()
         );
     }
@@ -66,6 +69,7 @@ class BaseChartModel
         $this->sparklineFromArray($array);
         $this->gridFromArray($array);
         $this->colorsFromArray($array);
+        $this->jsonConfigFromArray($array);
         $this->themeFromArray($array);
     }
 }
